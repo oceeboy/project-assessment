@@ -112,4 +112,24 @@ export class AuthService {
       },
     };
   }
+
+  async refreshToken({ userId }: { userId: string }) {
+    const user = await this.usersService.userProfile({
+      userId: userId,
+    });
+
+    const { access_token } = await this.signToken(
+      String(user.id),
+      user.email,
+      user.role,
+    );
+
+    return {
+      success: true,
+      message: 'New Access token',
+      token: {
+        access_token,
+      },
+    };
+  }
 }

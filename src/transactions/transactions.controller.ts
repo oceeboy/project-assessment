@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   Post,
   Query,
   Req,
@@ -16,7 +18,8 @@ import { Throttle } from '@nestjs/throttler';
 @Controller('transactions')
 export class TransactionsController {
   constructor(private readonly transactionService: TransactionsService) {}
-
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
+  @HttpCode(HttpStatus.CREATED)
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async createTrans(
@@ -31,7 +34,7 @@ export class TransactionsController {
     });
   }
 
-  @Throttle({ default: { limit: 3, ttl: 60000 } })
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async getTransactionsByUserId(
