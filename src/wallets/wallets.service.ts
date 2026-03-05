@@ -3,6 +3,7 @@ import {
   ConflictException,
   Inject,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Wallet } from './entities/wallet.entity';
@@ -34,6 +35,24 @@ export class WalletsService {
 
     return {
       savedWallet,
+    };
+  }
+
+  async userWallet({ userId }: { userId: string }) {
+    const wallet = await this.walletRepository.findOne({
+      where: { userId },
+    });
+
+    if (!wallet) throw new NotFoundException('Wallet not found');
+
+    return {
+      success: true,
+      message: 'Wallet details',
+      data: {
+        id: wallet.id,
+        balance: wallet.balance,
+        currency: wallet.currency,
+      },
     };
   }
 }
