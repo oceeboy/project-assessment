@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsDecimal,
-  IsEnum,
-  IsNumber,
-  IsString,
-  MinLength,
-} from 'class-validator';
+import { IsEnum, IsNumber, IsString, MinLength } from 'class-validator';
 
 enum TransactionType {
   CREDIT = 'credit',
