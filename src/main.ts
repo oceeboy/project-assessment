@@ -18,7 +18,7 @@ async function bootstrap() {
 
   // Swagger configuration
   const config = new DocumentBuilder()
-    .setTitle('Backend Engineer Assessment - SohCahToa Holdings')
+    .setTitle('NestJS Wallet & Transaction API')
     .setDescription(
       'API documentation for a Secure Wallet & Transaction Processing API.',
     )
