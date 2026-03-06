@@ -22,6 +22,7 @@ import { appProviders } from './app.providers';
         },
       ],
     }),
+
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
     DatabaseModule,
     WalletsModule,

@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const isProd = process.env.NODE_ENV === 'production';
@@ -14,6 +15,18 @@ async function bootstrap() {
     : true;
 
   const app = await NestFactory.create(AppModule);
+
+  // Swagger configuration
+  const config = new DocumentBuilder()
+    .setTitle('Backend Engineer Assessment - SohCahToa Holdings')
+    .setDescription(
+      'API documentation for a Secure Wallet & Transaction Processing API.',
+    )
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document); // Setup Swagger at /api-docs
 
   // Global API prefix
   app.setGlobalPrefix(apiPrefix);
